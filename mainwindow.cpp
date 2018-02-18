@@ -35,13 +35,13 @@ MainWindow::MainWindow(QWidget *parent, MainWindowPresenter* apresenter) :
 
     setFixedSize(400, 250);
     timeLine = new QTimeLabel(this);
-    timeLine->setText("Start pomodoro");
+    timeLine->setText("Start task");
     timeLine->setFixedSize(this->size());
     timeLine->setAlignment(Qt::AlignCenter);
 
     setStyleSheet("background-color: #222; color: white");
     setWindowTitle("Pomodoro Timer");
-    setWindowIcon(QIcon(":/images/tomato.png"));
+    setWindowIcon(QIcon(":/images/task.png"));
     new QShortcut(Qt::Key_P, this, SLOT(startPomodoro()));
     new QShortcut(Qt::Key_S, this, SLOT(startLongBreak()));
     new QShortcut(Qt::Key_L, this, SLOT(startShortBreak()));

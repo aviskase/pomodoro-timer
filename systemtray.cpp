@@ -28,7 +28,7 @@ SystemTray::SystemTray(QObject *parent, MainWindowPresenter *presenter) :
     QSystemTrayIcon(parent),
     presenter(presenter)
 {
-    QIcon icon = QIcon(":/images/tomato.png");
+    QIcon icon = QIcon(":/images/task.png");
     setIcon(icon);
 
     presenter->init(this);
@@ -41,9 +41,9 @@ SystemTray::SystemTray(QObject *parent, MainWindowPresenter *presenter) :
 
 void SystemTray::createActions()
  {
-    startPomodoroAction = new QAction(QIcon(":/images/tomato.png"), tr("Start &pomodoro"), this);
-    startShortBreakAction = new QAction(QIcon(":/images/coffee_break.png"), tr("Start coffee &break"), this);
-    startLongBreakAction = new QAction(QIcon(":/images/hamburger.png"), tr("Start &long break"), this);
+    startPomodoroAction = new QAction(QIcon(":/images/task.png"), tr("Start &task"), this);
+    startShortBreakAction = new QAction(QIcon(":/images/short_break.png"), tr("Start short &break"), this);
+    startLongBreakAction = new QAction(QIcon(":/images/long_break.png"), tr("Start &long break"), this);
     pauseAction = new QAction(QIcon(":/images/pause.png"), tr("Pause"), this);
     resumeAction = new QAction(QIcon(":/images/pause.png"), tr("Resume"), this);
     quitAction = new QAction(tr("&Quit"), this);
@@ -73,17 +73,17 @@ void SystemTray::createTrayIcon()
 
 void SystemTray::setStartShortBreakIcon()
 {
-    setIcon(QIcon(":/images/coffee_break.png"));
+    setIcon(QIcon(":/images/short_break.png"));
 }
 
 void SystemTray::setStartLongBreakIcon()
 {
-    setIcon(QIcon(":/images/hamburger.png"));
+    setIcon(QIcon(":/images/long_break.png"));
 }
 
 void SystemTray::setStartPomodoroIcon()
 {
-    setIcon(QIcon(":/images/tomato.png"));
+    setIcon(QIcon(":/images/task.png"));
 }
 
 void SystemTray::showTimeOutMessage()

@@ -18,7 +18,7 @@
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    inkscape:version="0.92.2 (unknown)"
-   sodipodi:docname="task.svg">
+   sodipodi:docname="alarm.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -29,8 +29,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.6614704"
-     inkscape:cx="55.203885"
-     inkscape:cy="61.785611"
+     inkscape:cx="10.491759"
+     inkscape:cy="91.844183"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -87,11 +87,5 @@
        d="M 64 4 A 60 60 0 0 0 4 64 A 60 60 0 0 0 64 124 A 60 60 0 0 0 124 64 A 60 60 0 0 0 64 4 z M 64 24 A 39.999999 39.999999 0 0 1 104 64 A 39.999999 39.999999 0 0 1 64 104 A 39.999999 39.999999 0 0 1 24 64 A 39.999999 39.999999 0 0 1 64 24 z "
        transform="matrix(0.26458333,0,0,0.26458333,0,263.13333)"
        id="path10" />
-    <circle
-       id="path10-6-3"
-       cx="16.933332"
-       cy="280.06665"
-       style="fill:#d3dae3;fill-opacity:1;stroke:none;stroke-width:0.08741397"
-       r="5.2916665" />
   </g>
 </svg>
