@@ -54,7 +54,7 @@ void Pomodoro::startShortBreak()
 void Pomodoro::startLongBreak()
 {
     timer->stop();
-    time_left = 30 * 60;
+    time_left = 15 * 60;
     timer->start();
 }
 
