@@ -35,7 +35,7 @@ public:
     ~QTimeLabel();
 
     void setTime(int time);
-    void setText(const QString &);
+    void setEmpty();
 
 private:
     QFont* font;

@@ -27,7 +27,6 @@ QTimeLabel::QTimeLabel(QWidget *parent) :
     QLabel(parent)
 {
     font = new QFont("Courier New");
-    font->setItalic(true);
 }
 
 QTimeLabel::~QTimeLabel()
@@ -47,9 +46,9 @@ void QTimeLabel::setTime(int time)
     QLabel::setText(formatTime1(time));
 }
 
-void QTimeLabel::setText(const QString& text)
+void QTimeLabel::setEmpty()
 {
-    font->setPixelSize(36);
+    font->setPixelSize(72);
     setFont(*font);
-    QLabel::setText(text);
+    QLabel::setText("--:--");
 }

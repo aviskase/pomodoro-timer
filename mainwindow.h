@@ -25,6 +25,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
 #include <QSystemTrayIcon>
 #include "qtimelabel.h"
 #include "mainwindowpresenter.h"
@@ -43,8 +44,10 @@ public:
     explicit MainWindow(QWidget *parent = 0, MainWindowPresenter* mainWindowPresenter = 0);
     ~MainWindow();
 
-    void showTimeOutMessage(QString timer_type);
-    void updateTime(time_t);
+    void showTimeOutMessage();
+    void updateTime(time_t);    
+    void setPauseState();
+    void setResumeState();
 
 public slots:
     void startPomodoro();
@@ -56,9 +59,12 @@ public slots:
 
 private:
     MainWindowPresenter* presenter;
-
-    Ui::MainWindow *ui;
     QTimeLabel* timeLine;
+    QPushButton* taskBtn;
+    QPushButton* shortBreakBtn;
+    QPushButton* longBreakBtn;
+    QPushButton* pauseBtn;
+    QPushButton* resumeBtn;
 
 };
 

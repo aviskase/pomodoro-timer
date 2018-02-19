@@ -46,8 +46,6 @@ HEADERS  += mainwindow.h \
     systemtray.h \
     mainwindowpresenter.h
 
-FORMS    += mainwindow.ui
-
 OTHER_FILES += \
     icon.rc
 

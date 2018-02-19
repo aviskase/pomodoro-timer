@@ -22,36 +22,67 @@
  ****************************************************************************/
 
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include <QVBoxLayout>
 #include <QShortcut>
+#include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent, MainWindowPresenter* apresenter) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
     presenter(apresenter)
 {
     presenter->initWindow(this);
 
     setFixedSize(400, 250);
-    timeLine = new QTimeLabel(this);
-    timeLine->setText("Start task");
-    timeLine->setFixedSize(this->size());
+    timeLine = new QTimeLabel();
+    timeLine->setEmpty();
     timeLine->setAlignment(Qt::AlignCenter);
 
-    setStyleSheet("background-color: #222; color: white");
+    QWidget *central = new QWidget();
+    taskBtn = new QPushButton("Start task");
+    shortBreakBtn = new QPushButton("Start short break");
+    longBreakBtn = new QPushButton("Start long break");
+    pauseBtn = new QPushButton("Pause");
+    pauseBtn->setDisabled(true);
+    resumeBtn = new QPushButton("Resume");
+    resumeBtn->setDisabled(true);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(timeLine);
+    QHBoxLayout *buttonsLayout1 = new QHBoxLayout;
+    buttonsLayout1->addWidget(taskBtn);
+    buttonsLayout1->addWidget(shortBreakBtn);
+    buttonsLayout1->addWidget(longBreakBtn);
+    mainLayout->addLayout(buttonsLayout1);
+    QHBoxLayout *buttonsLayout2 = new QHBoxLayout;
+    buttonsLayout2->addWidget(pauseBtn);
+    buttonsLayout2->addWidget(resumeBtn);
+    mainLayout->addLayout(buttonsLayout2);
+    central->setLayout(mainLayout);
+    setCentralWidget(central);
+
     setWindowTitle("Pomodoro Timer");
     setWindowIcon(QIcon(":/images/task.png"));
-    new QShortcut(Qt::Key_P, this, SLOT(startPomodoro()));
-    new QShortcut(Qt::Key_S, this, SLOT(startLongBreak()));
-    new QShortcut(Qt::Key_L, this, SLOT(startShortBreak()));
-    new QShortcut(Qt::Key_Space, this, SLOT(pause()));
+
+    new QShortcut(Qt::Key_T, this, SLOT(startPomodoro()));
+    connect(this->taskBtn, SIGNAL (clicked()),this, SLOT (startPomodoro()));
+
+    new QShortcut(Qt::Key_L, this, SLOT(startLongBreak()));
+    connect(this->longBreakBtn, SIGNAL (clicked()),this, SLOT (startLongBreak()));
+
+    new QShortcut(Qt::Key_S, this, SLOT(startShortBreak()));
+    connect(this->shortBreakBtn, SIGNAL (clicked()),this, SLOT (startShortBreak()));
+
+    new QShortcut(Qt::Key_P, this, SLOT(pause()));
+    connect(this->pauseBtn, SIGNAL (clicked()),this, SLOT (pause()));
+
+    new QShortcut(Qt::Key_R, this, SLOT(resume()));
+    connect(this->resumeBtn, SIGNAL (clicked()),this, SLOT (resume()));
+
     new QShortcut(Qt::Key_Q, this, SLOT(quit()));
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
     delete presenter;
 }
 
@@ -60,10 +91,21 @@ void MainWindow::updateTime(time_t time)
     timeLine->setTime(time);
 }
 
-void MainWindow::showTimeOutMessage(QString timer_type)
+void MainWindow::showTimeOutMessage()
 {
-    timeLine->setText(timer_type + " is over!");
+    pauseBtn->setDisabled(true);
+    timeLine->setEmpty();
     show();
+}
+
+void MainWindow::setPauseState() {
+    pauseBtn->setDisabled(true);
+    resumeBtn->setDisabled(false);
+}
+
+void MainWindow::setResumeState() {
+    pauseBtn->setDisabled(false);
+    resumeBtn->setDisabled(true);
 }
 
 void MainWindow::startPomodoro() {

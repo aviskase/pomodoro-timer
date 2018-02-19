@@ -46,7 +46,7 @@ void MainWindowPresenter::updateTime()
 
 void MainWindowPresenter::timeOut(QString timer_type)
 {
-    mainWindow->showTimeOutMessage(timer_type);
+    mainWindow->showTimeOutMessage();
     systemTray->showTimeOutMessage(timer_type);
 }
 
@@ -70,6 +70,7 @@ void MainWindowPresenter::startShortBreak()
 {
     systemTray->setResumeState();
     systemTray->setStartShortBreakIcon();
+    mainWindow->setResumeState();
     pomodoro->startShortBreak();
 }
 
@@ -77,6 +78,7 @@ void MainWindowPresenter::startLongBreak()
 {
     systemTray->setResumeState();
     systemTray->setStartLongBreakIcon();
+    mainWindow->setResumeState();
     pomodoro->startLongBreak();
 }
 
@@ -84,6 +86,7 @@ void MainWindowPresenter::startPomodoro()
 {
     systemTray->setResumeState();
     systemTray->setStartPomodoroIcon();
+    mainWindow->setResumeState();
     pomodoro->startPomodoro();
 }
 
@@ -92,6 +95,7 @@ void MainWindowPresenter::pause()
     if (pomodoro->isActive()) {
         pomodoro->pause();
         systemTray->setPauseState();
+        mainWindow->setPauseState();
     } else {
         resume();
     }
@@ -101,6 +105,7 @@ void MainWindowPresenter::resume()
 {
     pomodoro->resume();
     systemTray->setResumeState();
+    mainWindow->setResumeState();
 }
 
 void MainWindowPresenter::quit()
