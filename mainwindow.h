@@ -43,7 +43,7 @@ public:
     explicit MainWindow(QWidget *parent = 0, MainWindowPresenter* mainWindowPresenter = 0);
     ~MainWindow();
 
-    void showTimeOutMessage();
+    void showTimeOutMessage(QString timer_type);
     void updateTime(time_t);
 
 public slots:

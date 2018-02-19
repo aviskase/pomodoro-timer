@@ -27,6 +27,7 @@ Pomodoro::Pomodoro(QObject *parent) :
     QObject(parent)
 {
     time_left = 0;
+    timer_type = "";
     timer = new QTimer();
     timer->setInterval(1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerTicked()));
@@ -41,6 +42,7 @@ void Pomodoro::startPomodoro()
 {
     timer->stop();
     time_left = 25 * 60;
+    timer_type = "Task";
     timer->start();
 }
 
@@ -48,6 +50,7 @@ void Pomodoro::startShortBreak()
 {
     timer->stop();
     time_left = 5 * 60;
+    timer_type = "Short break";
     timer->start();
 }
 
@@ -55,6 +58,7 @@ void Pomodoro::startLongBreak()
 {
     timer->stop();
     time_left = 15 * 60;
+    timer_type = "Long break";
     timer->start();
 }
 
@@ -75,7 +79,7 @@ void Pomodoro::timerTicked()
     if (time_left <= 0) {
         time_left = 0;
         timer->stop();
-        emit timeout();
+        emit timeout(timer_type);
     }
 }
 

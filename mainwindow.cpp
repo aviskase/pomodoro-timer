@@ -60,9 +60,9 @@ void MainWindow::updateTime(time_t time)
     timeLine->setTime(time);
 }
 
-void MainWindow::showTimeOutMessage()
+void MainWindow::showTimeOutMessage(QString timer_type)
 {
-    timeLine->setText("Time out");
+    timeLine->setText(timer_type + " is over!");
     show();
 }
 

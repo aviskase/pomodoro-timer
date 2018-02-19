@@ -45,7 +45,7 @@ public:
 signals:
     
 public slots:
-    void timeOut();
+    void timeOut(QString timer_type);
     void updateTime();
     void handleTrayIconActivation(QSystemTrayIcon::ActivationReason);
 

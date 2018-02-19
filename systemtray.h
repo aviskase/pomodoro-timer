@@ -42,7 +42,7 @@ public:
     void setStartPomodoroIcon();
     void setStartShortBreakIcon();
     void setStartLongBreakIcon();
-    void showTimeOutMessage();
+    void showTimeOutMessage(QString timer_type);
     void setPauseState();
     void setResumeState();
 

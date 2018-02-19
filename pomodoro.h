@@ -46,7 +46,7 @@ public:
 
 signals:
     void tick();
-    void timeout();
+    void timeout(QString timer_type);
 
 private slots:
     void timerTicked();
@@ -54,6 +54,7 @@ private slots:
 private:
     time_t time_left;
     QTimer* timer;
+    QString timer_type;
 };
 
 #endif // POMODORO_H

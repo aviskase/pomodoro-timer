@@ -29,7 +29,7 @@ MainWindowPresenter::MainWindowPresenter(QObject *parent, Pomodoro* pomodoro) :
 {
     this->pomodoro = pomodoro;
     connect(this->pomodoro, SIGNAL(tick()), this, SLOT(updateTime()));
-    connect(this->pomodoro, SIGNAL(timeout()), this, SLOT(timeOut()));
+    connect(this->pomodoro, SIGNAL(timeout(QString)), this, SLOT(timeOut(QString)));
 }
 
 void MainWindowPresenter::initWindow(MainWindow* mainWindow)
@@ -42,10 +42,10 @@ void MainWindowPresenter::updateTime()
     mainWindow->updateTime(pomodoro->getTimeLeft());
 }
 
-void MainWindowPresenter::timeOut()
+void MainWindowPresenter::timeOut(QString timer_type)
 {
-    mainWindow->showTimeOutMessage();
-    systemTray->showTimeOutMessage();
+    mainWindow->showTimeOutMessage(timer_type);
+    systemTray->showTimeOutMessage(timer_type);
 }
 
 void MainWindowPresenter::handleTrayIconActivation(QSystemTrayIcon::ActivationReason reason)

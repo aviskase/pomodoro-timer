@@ -86,11 +86,11 @@ void SystemTray::setStartPomodoroIcon()
     setIcon(QIcon(":/images/task.png"));
 }
 
-void SystemTray::showTimeOutMessage()
+void SystemTray::showTimeOutMessage(QString timer_type)
 {
     QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
     setIcon(QIcon(":/images/alarm.png"));
-    showMessage("Time out", "Time out", icon, 60 * 1000);
+    showMessage("Time out", timer_type + " is over!", icon, 60 * 1000);
     pauseAction->setVisible(false);
 }
 
