@@ -39,7 +39,9 @@ void MainWindowPresenter::initWindow(MainWindow* mainWindow)
 
 void MainWindowPresenter::updateTime()
 {
-    mainWindow->updateTime(pomodoro->getTimeLeft());
+    int time_left = pomodoro->getTimeLeft();
+    mainWindow->updateTime(time_left);
+    systemTray->updateTime(time_left);
 }
 
 void MainWindowPresenter::timeOut(QString timer_type)

@@ -45,6 +45,7 @@ public:
     void showTimeOutMessage(QString timer_type);
     void setPauseState();
     void setResumeState();
+    void updateTime(time_t);
 
 signals:
     

@@ -91,6 +91,7 @@ void SystemTray::showTimeOutMessage(QString timer_type)
     QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
     setIcon(QIcon(":/images/alarm.png"));
     showMessage("Time out", timer_type + " is over!", icon, 60 * 1000);
+    setToolTip("pomodoro-timer");
     pauseAction->setVisible(false);
 }
 
@@ -107,4 +108,10 @@ void SystemTray::setResumeState()
     pauseAction->setVisible(true);
     resumeAction->setVisible(false);
     setIcon(lastIcon);
+}
+
+void SystemTray::updateTime(time_t time)
+{
+    QString time_s = QString("%1:%2").arg(time / 60, 2, 10, QChar('0')).arg(time % 60, 2, 10, QChar('0'));
+    setToolTip(time_s);
 }
