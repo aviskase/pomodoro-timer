@@ -23,6 +23,8 @@
 
 #include "pomodoro.h"
 
+#include <QSettings>
+
 Pomodoro::Pomodoro(QObject *parent) :
     QObject(parent)
 {
@@ -41,7 +43,8 @@ Pomodoro::~Pomodoro()
 void Pomodoro::startPomodoro()
 {
     timer->stop();
-    time_left = 25 * 60;
+    QSettings s;
+    time_left = 60 * s.value("task_time", 25).toInt();
     timer_type = "Task";
     timer->start();
 }
@@ -49,7 +52,8 @@ void Pomodoro::startPomodoro()
 void Pomodoro::startShortBreak()
 {
     timer->stop();
-    time_left = 5 * 60;
+    QSettings s;
+    time_left = 60 * s.value("short_break_time", 5).toInt();
     timer_type = "Short break";
     timer->start();
 }
@@ -57,7 +61,8 @@ void Pomodoro::startShortBreak()
 void Pomodoro::startLongBreak()
 {
     timer->stop();
-    time_left = 15 * 60;
+    QSettings s;
+    time_left = 60 * s.value("long_break_time", 15).toInt();
     timer_type = "Long break";
     timer->start();
 }

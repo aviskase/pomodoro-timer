@@ -32,6 +32,7 @@
 
 class MainWindow;
 class SystemTray;
+class OptionsDialog;
 
 class MainWindowPresenter : public QObject
 {
@@ -54,12 +55,14 @@ public slots:
     void startLongBreak();
     void pause();
     void resume();
+    void options();
     void quit();
 
 private:
     MainWindow* mainWindow;
     SystemTray* systemTray;
     Pomodoro* pomodoro;
+    OptionsDialog* optionsDialog;
 };
 
 #endif // MAIN_WINDOW_PRESENTER_H

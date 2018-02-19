@@ -78,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent, MainWindowPresenter* apresenter) :
     new QShortcut(Qt::Key_R, this, SLOT(resume()));
     connect(this->resumeBtn, SIGNAL (clicked()),this, SLOT (resume()));
 
+    new QShortcut(Qt::Key_O, this, SLOT(options()));
     new QShortcut(Qt::Key_Q, this, SLOT(quit()));
 }
 
@@ -126,6 +127,10 @@ void MainWindow::pause() {
 
 void MainWindow::resume() {
     presenter->resume();
+}
+
+void MainWindow::options() {
+    presenter->options();
 }
 
 void MainWindow::quit() {

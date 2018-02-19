@@ -38,13 +38,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     pomodoro.cpp \
     systemtray.cpp \
-    mainwindowpresenter.cpp
+    mainwindowpresenter.cpp \
+    optionsdialog.cpp
 
 HEADERS  += mainwindow.h \
     qtimelabel.h \
     pomodoro.h \
     systemtray.h \
-    mainwindowpresenter.h
+    mainwindowpresenter.h \
+    optionsdialog.h
 
 OTHER_FILES += \
     icon.rc

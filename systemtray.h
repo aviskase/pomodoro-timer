@@ -58,6 +58,7 @@ private:
     QAction* startLongBreakAction;
     QAction* pauseAction;
     QAction* resumeAction;
+    QAction* optionsAction;
     QAction* quitAction;
     QIcon lastIcon;
 };

@@ -22,10 +22,12 @@
  ****************************************************************************/
 
 #include "mainwindowpresenter.h"
+#include "optionsdialog.h"
 #include <QShortcut>
 
 MainWindowPresenter::MainWindowPresenter(QObject *parent, Pomodoro* pomodoro) :
-    QObject(parent)
+    QObject(parent),
+    optionsDialog(Q_NULLPTR)
 {
     this->pomodoro = pomodoro;
     connect(this->pomodoro, SIGNAL(tick()), this, SLOT(updateTime()));
@@ -106,6 +108,16 @@ void MainWindowPresenter::resume()
     pomodoro->resume();
     systemTray->setResumeState();
     mainWindow->setResumeState();
+}
+
+void MainWindowPresenter::options()
+{
+    if (!optionsDialog) {
+        optionsDialog = new OptionsDialog(mainWindow);
+    }
+    optionsDialog->show();
+    optionsDialog->raise();
+    optionsDialog->activateWindow();
 }
 
 void MainWindowPresenter::quit()

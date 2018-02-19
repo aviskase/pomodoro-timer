@@ -36,6 +36,9 @@ int main(int argc, char *argv[])
 {
     std::cout << 00 << '\n';
     QApplication a(argc, argv);
+    QCoreApplication::setApplicationName("Pomodoro timer");
+    QCoreApplication::setOrganizationDomain("aviskase.github.io");
+    QCoreApplication::setOrganizationName("aviskase");
     if (!QSystemTrayIcon::isSystemTrayAvailable()) {
         QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("I couldn't detect any system tray on this system."));
         return 1;

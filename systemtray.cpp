@@ -46,12 +46,14 @@ void SystemTray::createActions()
     startLongBreakAction = new QAction(QIcon(":/images/long_break.png"), tr("Start &long break"), this);
     pauseAction = new QAction(QIcon(":/images/pause.png"), tr("Pause"), this);
     resumeAction = new QAction(QIcon(":/images/pause.png"), tr("Resume"), this);
+    optionsAction = new QAction(tr("&Options"), this);
     quitAction = new QAction(tr("&Quit"), this);
     connect(startPomodoroAction, SIGNAL(triggered()), presenter, SLOT(startPomodoro()));
     connect(startShortBreakAction, SIGNAL(triggered()), presenter, SLOT(startShortBreak()));
     connect(startLongBreakAction, SIGNAL(triggered()), presenter, SLOT(startLongBreak()));
     connect(pauseAction, SIGNAL(triggered()), presenter, SLOT(pause()));
     connect(resumeAction, SIGNAL(triggered()), presenter, SLOT(resume()));
+    connect(optionsAction, SIGNAL(triggered()), presenter, SLOT(options()));
     connect(quitAction, SIGNAL(triggered()), presenter, SLOT(quit()));
  }
 
@@ -64,6 +66,7 @@ void SystemTray::createTrayIcon()
     trayIconMenu->addAction(pauseAction);
     trayIconMenu->addAction(resumeAction);
     trayIconMenu->addSeparator();
+    trayIconMenu->addAction(optionsAction);
     trayIconMenu->addAction(quitAction);
 
     setContextMenu(trayIconMenu);
