@@ -57,6 +57,10 @@ public slots:
     void resume();
     void options();
     void quit();
+    void setRecommendedTask();
+    void setRecommendedShortBreak();
+    void setRecommendedLongBreak();
+    void unsetRecommended();
 
 private:
     MainWindowPresenter* presenter;
@@ -67,6 +71,7 @@ private:
     QPushButton* pauseBtn;
     QPushButton* resumeBtn;
 
+    void setButtonBold(QPushButton *, bool);
 };
 
 #endif // MAINWINDOW_H

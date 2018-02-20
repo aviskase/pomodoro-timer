@@ -29,7 +29,10 @@ Pomodoro::Pomodoro(QObject *parent) :
     QObject(parent)
 {
     time_left = 0;
-    timer_type = "";
+    tasksCount = 0;
+    shortBreaksCount = 0;
+    longBreaksCount = 0;
+    cyclesCount = 0;
     timer = new QTimer();
     timer->setInterval(1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerTicked()));
@@ -45,7 +48,7 @@ void Pomodoro::startPomodoro()
     timer->stop();
     QSettings s;
     time_left = 60 * s.value("task_time", 25).toInt();
-    timer_type = "Task";
+    timer_type = TimerType::TASK;
     timer->start();
 }
 
@@ -54,7 +57,7 @@ void Pomodoro::startShortBreak()
     timer->stop();
     QSettings s;
     time_left = 60 * s.value("short_break_time", 5).toInt();
-    timer_type = "Short break";
+    timer_type = TimerType::SHORT_BREAK;
     timer->start();
 }
 
@@ -63,7 +66,7 @@ void Pomodoro::startLongBreak()
     timer->stop();
     QSettings s;
     time_left = 60 * s.value("long_break_time", 15).toInt();
-    timer_type = "Long break";
+    timer_type = TimerType::LONG_BREAK;
     timer->start();
 }
 
@@ -84,7 +87,26 @@ void Pomodoro::timerTicked()
     if (time_left <= 0) {
         time_left = 0;
         timer->stop();
-        emit timeout(timer_type);
+
+        switch(timer_type) {
+        case TASK:
+            tasksCount++;
+            // TODO: Naive check for now. Should think about proper handling of consecutive break, pauses (?), etc.
+            if (tasksCount % 4 == 0) emit recommendLongBreak();
+            else emit recommendShortBreak();
+            emit timeout("Task");
+            break;
+        case SHORT_BREAK:
+            shortBreaksCount++;
+            emit recommendTask();
+            emit timeout("Short break");
+            break;
+        case LONG_BREAK:
+            longBreaksCount++;
+            emit recommendTask();
+            emit timeout("Long break");
+            break;
+        }
     }
 }
 

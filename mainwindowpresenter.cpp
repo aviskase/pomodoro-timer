@@ -32,6 +32,9 @@ MainWindowPresenter::MainWindowPresenter(QObject *parent, Pomodoro* pomodoro) :
     this->pomodoro = pomodoro;
     connect(this->pomodoro, SIGNAL(tick()), this, SLOT(updateTime()));
     connect(this->pomodoro, SIGNAL(timeout(QString)), this, SLOT(timeOut(QString)));
+    connect(this->pomodoro, &Pomodoro::recommendTask, this, &MainWindowPresenter::recommendTask);
+    connect(this->pomodoro, &Pomodoro::recommendShortBreak, this, &MainWindowPresenter::recommendShortBreak);
+    connect(this->pomodoro, &Pomodoro::recommendLongBreak, this, &MainWindowPresenter::recommendLongBreak);
 }
 
 void MainWindowPresenter::initWindow(MainWindow* mainWindow)
@@ -50,6 +53,23 @@ void MainWindowPresenter::timeOut(QString timer_type)
 {
     mainWindow->showTimeOutMessage();
     systemTray->showTimeOutMessage(timer_type);
+}
+
+void MainWindowPresenter::recommendTask()
+{   mainWindow->setRecommendedTask();
+    systemTray->setRecommendedTask();
+}
+
+void MainWindowPresenter::recommendShortBreak()
+{
+    mainWindow->setRecommendedShortBreak();
+    systemTray->setRecommendedShortBreak();
+}
+
+void MainWindowPresenter::recommendLongBreak()
+{
+    mainWindow->setRecommendedLongBreak();
+    systemTray->setRecommendedLongBreak();
 }
 
 void MainWindowPresenter::handleTrayIconActivation(QSystemTrayIcon::ActivationReason reason)
@@ -72,7 +92,9 @@ void MainWindowPresenter::startShortBreak()
 {
     systemTray->setResumeState();
     systemTray->setStartShortBreakIcon();
+    systemTray->unsetRecommended();
     mainWindow->setResumeState();
+    mainWindow->unsetRecommended();
     pomodoro->startShortBreak();
 }
 
@@ -80,7 +102,9 @@ void MainWindowPresenter::startLongBreak()
 {
     systemTray->setResumeState();
     systemTray->setStartLongBreakIcon();
+    systemTray->unsetRecommended();
     mainWindow->setResumeState();
+    mainWindow->unsetRecommended();
     pomodoro->startLongBreak();
 }
 
@@ -88,7 +112,9 @@ void MainWindowPresenter::startPomodoro()
 {
     systemTray->setResumeState();
     systemTray->setStartPomodoroIcon();
+    systemTray->unsetRecommended();
     mainWindow->setResumeState();
+    mainWindow->unsetRecommended();
     pomodoro->startPomodoro();
 }
 

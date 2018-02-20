@@ -46,6 +46,10 @@ public:
     void setPauseState();
     void setResumeState();
     void updateTime(time_t);
+    void setRecommendedTask();
+    void setRecommendedShortBreak();
+    void setRecommendedLongBreak();
+    void unsetRecommended();
 
 signals:
     

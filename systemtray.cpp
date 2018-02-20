@@ -41,7 +41,7 @@ SystemTray::SystemTray(QObject *parent, MainWindowPresenter *presenter) :
 
 void SystemTray::createActions()
  {
-    startPomodoroAction = new QAction(QIcon(":/images/task.png"), tr("Start &task"), this);
+    startPomodoroAction = new QAction(QIcon(":/images/task_pr.png"), tr("Start &task"), this);
     startShortBreakAction = new QAction(QIcon(":/images/short_break.png"), tr("Start short &break"), this);
     startLongBreakAction = new QAction(QIcon(":/images/long_break.png"), tr("Start &long break"), this);
     pauseAction = new QAction(QIcon(":/images/pause.png"), tr("Pause"), this);
@@ -118,3 +118,28 @@ void SystemTray::updateTime(time_t time)
     QString time_s = QString("%1:%2").arg(time / 60, 2, 10, QChar('0')).arg(time % 60, 2, 10, QChar('0'));
     setToolTip(time_s);
 }
+
+void SystemTray::setRecommendedTask()
+{
+    startPomodoroAction->setIcon(QIcon(":/images/task_pr.png"));
+}
+
+void SystemTray::setRecommendedShortBreak()
+{
+    startShortBreakAction->setIcon(QIcon(":/images/short_break_pr.png"));
+}
+
+void SystemTray::setRecommendedLongBreak()
+{
+    startLongBreakAction->setIcon(QIcon(":/images/long_break_pr.png"));
+}
+
+void SystemTray::unsetRecommended()
+{
+    startPomodoroAction->setIcon(QIcon(":/images/task.png"));
+    startShortBreakAction->setIcon(QIcon(":/images/short_break.png"));
+    startLongBreakAction->setIcon(QIcon(":/images/long_break.png"));
+}
+
+
+

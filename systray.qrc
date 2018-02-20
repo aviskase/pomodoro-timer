@@ -5,5 +5,8 @@
         <file>images/pause.png</file>
         <file>images/short_break.png</file>
         <file>images/task.png</file>
+        <file>images/long_break_pr.png</file>
+        <file>images/short_break_pr.png</file>
+        <file>images/task_pr.png</file>
     </qresource>
 </RCC>

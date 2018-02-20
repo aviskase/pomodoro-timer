@@ -35,6 +35,8 @@ public:
     explicit Pomodoro(QObject *parent = 0);
     ~Pomodoro();
 
+    enum TimerType { TASK, SHORT_BREAK, LONG_BREAK };
+
     time_t getTimeLeft();
     bool isActive();
 
@@ -47,6 +49,9 @@ public:
 signals:
     void tick();
     void timeout(QString timer_type);
+    void recommendTask();
+    void recommendShortBreak();
+    void recommendLongBreak();
 
 private slots:
     void timerTicked();
@@ -54,7 +59,11 @@ private slots:
 private:
     time_t time_left;
     QTimer* timer;
-    QString timer_type;
+    TimerType timer_type;
+    int tasksCount;
+    int shortBreaksCount;
+    int longBreaksCount;
+    int cyclesCount;
 };
 
 #endif // POMODORO_H

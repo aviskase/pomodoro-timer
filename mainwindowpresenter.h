@@ -47,6 +47,9 @@ signals:
     
 public slots:
     void timeOut(QString timer_type);
+    void recommendTask();
+    void recommendShortBreak();
+    void recommendLongBreak();
     void updateTime();
     void handleTrayIconActivation(QSystemTrayIcon::ActivationReason);
 

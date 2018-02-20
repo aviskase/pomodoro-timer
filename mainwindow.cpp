@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent, MainWindowPresenter* apresenter) :
 
     QWidget *central = new QWidget();
     taskBtn = new QPushButton("Start task");
+    setButtonBold(taskBtn, true);
     shortBreakBtn = new QPushButton("Start short break");
     longBreakBtn = new QPushButton("Start long break");
     pauseBtn = new QPushButton("Pause");
@@ -135,4 +136,33 @@ void MainWindow::options() {
 
 void MainWindow::quit() {
     presenter->quit();
+}
+
+void MainWindow::setRecommendedTask()
+{
+    setButtonBold(taskBtn, true);
+}
+
+void MainWindow::setRecommendedShortBreak()
+{
+    setButtonBold(shortBreakBtn, true);
+}
+
+void MainWindow::setRecommendedLongBreak()
+{
+    setButtonBold(longBreakBtn, true);
+}
+
+void MainWindow::unsetRecommended()
+{
+    setButtonBold(taskBtn, false);
+    setButtonBold(shortBreakBtn, false);
+    setButtonBold(longBreakBtn, false);
+}
+
+void MainWindow::setButtonBold(QPushButton* button, bool bold)
+{
+    QFont f = button->font();
+    f.setBold(bold);
+    button->setFont(f);
 }
