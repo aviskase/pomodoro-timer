@@ -1,23 +1,25 @@
 /****************************************************************************
  **
+ ** Copyright (C) 2018 Yuliya Bagriy.
+ **
  ** Copyright (C) 2012 Dmitriy Sukharev.
  ** All rights reserved.
  ** Contact: Dmitriy Sukharev (ecuna@mail.ru)
  **
- ** This file is part of Pomodoro Timer.
+ ** This file is part of Task Timer.
  **
- ** Pomodoro Timer is free software: you can redistribute it and/or modify
+ ** Task Timer is free software: you can redistribute it and/or modify
  ** it under the terms of the GNU Lesser General Public License as published
  ** by the Free Software Foundation, either version 3 of the License, or
  ** (at your option) any later version.
  **
- ** Pomodoro Timer is distributed in the hope that it will be useful,
+ ** Task Timer is distributed in the hope that it will be useful,
  ** but WITHOUT ANY WARRANTY; without even the implied warranty of
  ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  ** GNU Lesser General Public License for more details.
  **
  ** You should have received a copy of the GNU Lesser General Public License
- ** along with Pomodoro Timer.  If not, see <http://www.gnu.org/licenses/>.
+ ** along with Task Timer.  If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
 
@@ -25,16 +27,16 @@
 #include "optionsdialog.h"
 #include <QShortcut>
 
-MainWindowPresenter::MainWindowPresenter(QObject *parent, Pomodoro* pomodoro) :
+MainWindowPresenter::MainWindowPresenter(QObject *parent, Runner* runner) :
     QObject(parent),
     optionsDialog(Q_NULLPTR)
 {
-    this->pomodoro = pomodoro;
-    connect(this->pomodoro, SIGNAL(tick()), this, SLOT(updateTime()));
-    connect(this->pomodoro, SIGNAL(timeout(QString)), this, SLOT(timeOut(QString)));
-    connect(this->pomodoro, &Pomodoro::recommendTask, this, &MainWindowPresenter::recommendTask);
-    connect(this->pomodoro, &Pomodoro::recommendShortBreak, this, &MainWindowPresenter::recommendShortBreak);
-    connect(this->pomodoro, &Pomodoro::recommendLongBreak, this, &MainWindowPresenter::recommendLongBreak);
+    this->runner = runner;
+    connect(this->runner, SIGNAL(tick()), this, SLOT(updateTime()));
+    connect(this->runner, SIGNAL(timeout(QString)), this, SLOT(timeOut(QString)));
+    connect(this->runner, &Runner::recommendTask, this, &MainWindowPresenter::recommendTask);
+    connect(this->runner, &Runner::recommendShortBreak, this, &MainWindowPresenter::recommendShortBreak);
+    connect(this->runner, &Runner::recommendLongBreak, this, &MainWindowPresenter::recommendLongBreak);
 }
 
 void MainWindowPresenter::initWindow(MainWindow* mainWindow)
@@ -44,7 +46,7 @@ void MainWindowPresenter::initWindow(MainWindow* mainWindow)
 
 void MainWindowPresenter::updateTime()
 {
-    int time_left = pomodoro->getTimeLeft();
+    int time_left = runner->getTimeLeft();
     mainWindow->updateTime(time_left);
     systemTray->updateTime(time_left);
 }
@@ -95,7 +97,7 @@ void MainWindowPresenter::startShortBreak()
     systemTray->unsetRecommended();
     mainWindow->setResumeState();
     mainWindow->unsetRecommended();
-    pomodoro->startShortBreak();
+    runner->startShortBreak();
 }
 
 void MainWindowPresenter::startLongBreak()
@@ -105,23 +107,23 @@ void MainWindowPresenter::startLongBreak()
     systemTray->unsetRecommended();
     mainWindow->setResumeState();
     mainWindow->unsetRecommended();
-    pomodoro->startLongBreak();
+    runner->startLongBreak();
 }
 
-void MainWindowPresenter::startPomodoro()
+void MainWindowPresenter::startTask()
 {
     systemTray->setResumeState();
-    systemTray->setStartPomodoroIcon();
+    systemTray->setStartTaskIcon();
     systemTray->unsetRecommended();
     mainWindow->setResumeState();
     mainWindow->unsetRecommended();
-    pomodoro->startPomodoro();
+    runner->startTask();
 }
 
 void MainWindowPresenter::pause()
 {
-    if (pomodoro->isActive()) {
-        pomodoro->pause();
+    if (runner->isActive()) {
+        runner->pause();
         systemTray->setPauseState();
         mainWindow->setPauseState();
     } else {
@@ -131,7 +133,7 @@ void MainWindowPresenter::pause()
 
 void MainWindowPresenter::resume()
 {
-    pomodoro->resume();
+    runner->resume();
     systemTray->setResumeState();
     mainWindow->setResumeState();
 }

@@ -1,77 +1,72 @@
 /****************************************************************************
  **
+ ** Copyright (C) 2018 Yuliya Bagriy.
+ **
  ** Copyright (C) 2012 Dmitriy Sukharev.
  ** All rights reserved.
  ** Contact: Dmitriy Sukharev (ecuna@mail.ru)
  **
- ** This file is part of Pomodoro Timer.
+ ** This file is part of Task Timer.
  **
- ** Pomodoro Timer is free software: you can redistribute it and/or modify
+ ** Task Timer is free software: you can redistribute it and/or modify
  ** it under the terms of the GNU Lesser General Public License as published
  ** by the Free Software Foundation, either version 3 of the License, or
  ** (at your option) any later version.
  **
- ** Pomodoro Timer is distributed in the hope that it will be useful,
+ ** Task Timer is distributed in the hope that it will be useful,
  ** but WITHOUT ANY WARRANTY; without even the implied warranty of
  ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  ** GNU Lesser General Public License for more details.
  **
  ** You should have received a copy of the GNU Lesser General Public License
- ** along with Pomodoro Timer.  If not, see <http://www.gnu.org/licenses/>.
+ ** along with Task Timer.  If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef SYSTEMTRAY_H
+#define SYSTEMTRAY_H
 
-#include <QMainWindow>
-#include <QPushButton>
 #include <QSystemTrayIcon>
-#include "qtimelabel.h"
+#include <QAction>
 #include "mainwindowpresenter.h"
-
+//#include "mainwindow.h"
 class MainWindowPresenter;
 
-namespace Ui {
-class MainWindow;
-}
 
-class MainWindow : public QMainWindow
+class SystemTray : public QSystemTrayIcon
 {
     Q_OBJECT
-
 public:
-    explicit MainWindow(QWidget *parent = 0, MainWindowPresenter* mainWindowPresenter = 0);
-    ~MainWindow();
+    explicit SystemTray(QObject *parent = 0, MainWindowPresenter* presenter = 0);
 
-    void showTimeOutMessage();
-    void updateTime(time_t);    
+    void createActions();
+    void createTrayIcon();
+    void setStartTaskIcon();
+    void setStartShortBreakIcon();
+    void setStartLongBreakIcon();
+    void showTimeOutMessage(QString timer_type);
     void setPauseState();
     void setResumeState();
-
-public slots:
-    void startPomodoro();
-    void startShortBreak();
-    void startLongBreak();
-    void pause();
-    void resume();
-    void options();
-    void quit();
+    void updateTime(time_t);
     void setRecommendedTask();
     void setRecommendedShortBreak();
     void setRecommendedLongBreak();
     void unsetRecommended();
 
+signals:
+
+public slots:
+
 private:
     MainWindowPresenter* presenter;
-    QTimeLabel* timeLine;
-    QPushButton* taskBtn;
-    QPushButton* shortBreakBtn;
-    QPushButton* longBreakBtn;
-    QPushButton* pauseBtn;
-    QPushButton* resumeBtn;
-
-    void setButtonBold(QPushButton *, bool);
+    QAction* startTaskAction;
+    QAction* startShortBreakAction;
+    QAction* startLongBreakAction;
+    QAction* pauseAction;
+    QAction* resumeAction;
+    QAction* optionsAction;
+    QAction* quitAction;
+    QIcon lastIcon;
 };
 
-#endif // MAINWINDOW_H
+#endif // SYSTEMTRAY_H

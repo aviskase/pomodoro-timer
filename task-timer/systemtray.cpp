@@ -1,23 +1,25 @@
 /****************************************************************************
  **
+ ** Copyright (C) 2018 Yuliya Bagriy.
+ **
  ** Copyright (C) 2012 Dmitriy Sukharev.
  ** All rights reserved.
  ** Contact: Dmitriy Sukharev (ecuna@mail.ru)
  **
- ** This file is part of Pomodoro Timer.
+ ** This file is part of Task Timer.
  **
- ** Pomodoro Timer is free software: you can redistribute it and/or modify
+ ** Task Timer is free software: you can redistribute it and/or modify
  ** it under the terms of the GNU Lesser General Public License as published
  ** by the Free Software Foundation, either version 3 of the License, or
  ** (at your option) any later version.
  **
- ** Pomodoro Timer is distributed in the hope that it will be useful,
+ ** Task Timer is distributed in the hope that it will be useful,
  ** but WITHOUT ANY WARRANTY; without even the implied warranty of
  ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  ** GNU Lesser General Public License for more details.
  **
  ** You should have received a copy of the GNU Lesser General Public License
- ** along with Pomodoro Timer.  If not, see <http://www.gnu.org/licenses/>.
+ ** along with Task Timer.  If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
 
@@ -41,14 +43,14 @@ SystemTray::SystemTray(QObject *parent, MainWindowPresenter *presenter) :
 
 void SystemTray::createActions()
  {
-    startPomodoroAction = new QAction(QIcon(":/images/task_pr.png"), tr("Start &task"), this);
+    startTaskAction = new QAction(QIcon(":/images/task_pr.png"), tr("Start &task"), this);
     startShortBreakAction = new QAction(QIcon(":/images/short_break.png"), tr("Start short &break"), this);
     startLongBreakAction = new QAction(QIcon(":/images/long_break.png"), tr("Start &long break"), this);
     pauseAction = new QAction(QIcon(":/images/pause.png"), tr("Pause"), this);
     resumeAction = new QAction(QIcon(":/images/pause.png"), tr("Resume"), this);
     optionsAction = new QAction(tr("&Options"), this);
     quitAction = new QAction(tr("&Quit"), this);
-    connect(startPomodoroAction, SIGNAL(triggered()), presenter, SLOT(startPomodoro()));
+    connect(startTaskAction, SIGNAL(triggered()), presenter, SLOT(startTask()));
     connect(startShortBreakAction, SIGNAL(triggered()), presenter, SLOT(startShortBreak()));
     connect(startLongBreakAction, SIGNAL(triggered()), presenter, SLOT(startLongBreak()));
     connect(pauseAction, SIGNAL(triggered()), presenter, SLOT(pause()));
@@ -60,7 +62,7 @@ void SystemTray::createActions()
 void SystemTray::createTrayIcon()
 {
     QMenu* trayIconMenu = new QMenu();
-    trayIconMenu->addAction(startPomodoroAction);
+    trayIconMenu->addAction(startTaskAction);
     trayIconMenu->addAction(startShortBreakAction);
     trayIconMenu->addAction(startLongBreakAction);
     trayIconMenu->addAction(pauseAction);
@@ -84,7 +86,7 @@ void SystemTray::setStartLongBreakIcon()
     setIcon(QIcon(":/images/long_break.png"));
 }
 
-void SystemTray::setStartPomodoroIcon()
+void SystemTray::setStartTaskIcon()
 {
     setIcon(QIcon(":/images/task.png"));
 }
@@ -94,7 +96,7 @@ void SystemTray::showTimeOutMessage(QString timer_type)
     QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
     setIcon(QIcon(":/images/alarm.png"));
     showMessage("Time out", timer_type + " is over!", icon, 60 * 1000);
-    setToolTip("pomodoro-timer");
+    setToolTip("task-timer");
     pauseAction->setVisible(false);
 }
 
@@ -121,7 +123,7 @@ void SystemTray::updateTime(time_t time)
 
 void SystemTray::setRecommendedTask()
 {
-    startPomodoroAction->setIcon(QIcon(":/images/task_pr.png"));
+    startTaskAction->setIcon(QIcon(":/images/task_pr.png"));
 }
 
 void SystemTray::setRecommendedShortBreak()
@@ -136,7 +138,7 @@ void SystemTray::setRecommendedLongBreak()
 
 void SystemTray::unsetRecommended()
 {
-    startPomodoroAction->setIcon(QIcon(":/images/task.png"));
+    startTaskAction->setIcon(QIcon(":/images/task.png"));
     startShortBreakAction->setIcon(QIcon(":/images/short_break.png"));
     startLongBreakAction->setIcon(QIcon(":/images/long_break.png"));
 }

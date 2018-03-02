@@ -1,23 +1,25 @@
 /****************************************************************************
  **
+ ** Copyright (C) 2018 Yuliya Bagriy.
+ **
  ** Copyright (C) 2012 Dmitriy Sukharev.
  ** All rights reserved.
  ** Contact: Dmitriy Sukharev (ecuna@mail.ru)
  **
- ** This file is part of Pomodoro Timer.
+ ** This file is part of Task Timer.
  **
- ** Pomodoro Timer is free software: you can redistribute it and/or modify
+ ** Task Timer is free software: you can redistribute it and/or modify
  ** it under the terms of the GNU Lesser General Public License as published
  ** by the Free Software Foundation, either version 3 of the License, or
  ** (at your option) any later version.
  **
- ** Pomodoro Timer is distributed in the hope that it will be useful,
+ ** Task Timer is distributed in the hope that it will be useful,
  ** but WITHOUT ANY WARRANTY; without even the implied warranty of
  ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  ** GNU Lesser General Public License for more details.
  **
  ** You should have received a copy of the GNU Lesser General Public License
- ** along with Pomodoro Timer.  If not, see <http://www.gnu.org/licenses/>.
+ ** along with Task Timer.  If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
 
@@ -61,11 +63,11 @@ MainWindow::MainWindow(QWidget *parent, MainWindowPresenter* apresenter) :
     central->setLayout(mainLayout);
     setCentralWidget(central);
 
-    setWindowTitle("Pomodoro Timer");
+    setWindowTitle("Task Timer");
     setWindowIcon(QIcon(":/images/task.png"));
 
-    new QShortcut(Qt::Key_T, this, SLOT(startPomodoro()));
-    connect(this->taskBtn, SIGNAL (clicked()),this, SLOT (startPomodoro()));
+    new QShortcut(Qt::Key_T, this, SLOT(startTask()));
+    connect(this->taskBtn, SIGNAL (clicked()),this, SLOT (startTask()));
 
     new QShortcut(Qt::Key_L, this, SLOT(startLongBreak()));
     connect(this->longBreakBtn, SIGNAL (clicked()),this, SLOT (startLongBreak()));
@@ -110,8 +112,8 @@ void MainWindow::setResumeState() {
     resumeBtn->setDisabled(true);
 }
 
-void MainWindow::startPomodoro() {
-    presenter->startPomodoro();
+void MainWindow::startTask() {
+    presenter->startTask();
 }
 
 void MainWindow::startShortBreak() {

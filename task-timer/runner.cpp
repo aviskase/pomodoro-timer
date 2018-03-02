@@ -1,31 +1,33 @@
 /****************************************************************************
  **
+ ** Copyright (C) 2018 Yuliya Bagriy.
+ **
  ** Copyright (C) 2012 Dmitriy Sukharev.
  ** All rights reserved.
  ** Contact: Dmitriy Sukharev (ecuna@mail.ru)
  **
- ** This file is part of Pomodoro Timer.
+ ** This file is part of Task Timer.
  **
- ** Pomodoro Timer is free software: you can redistribute it and/or modify
+ ** Task Timer is free software: you can redistribute it and/or modify
  ** it under the terms of the GNU Lesser General Public License as published
  ** by the Free Software Foundation, either version 3 of the License, or
  ** (at your option) any later version.
  **
- ** Pomodoro Timer is distributed in the hope that it will be useful,
+ ** Task Timer is distributed in the hope that it will be useful,
  ** but WITHOUT ANY WARRANTY; without even the implied warranty of
  ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  ** GNU Lesser General Public License for more details.
  **
  ** You should have received a copy of the GNU Lesser General Public License
- ** along with Pomodoro Timer.  If not, see <http://www.gnu.org/licenses/>.
+ ** along with Task Timer.  If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
 
-#include "pomodoro.h"
+#include "runner.h"
 
 #include <QSettings>
 
-Pomodoro::Pomodoro(QObject *parent) :
+Runner::Runner(QObject *parent) :
     QObject(parent)
 {
     time_left = 0;
@@ -38,12 +40,12 @@ Pomodoro::Pomodoro(QObject *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(timerTicked()));
 }
 
-Pomodoro::~Pomodoro()
+Runner::~Runner()
 {
     delete timer;
 }
 
-void Pomodoro::startPomodoro()
+void Runner::startTask()
 {
     timer->stop();
     QSettings s;
@@ -52,7 +54,7 @@ void Pomodoro::startPomodoro()
     timer->start();
 }
 
-void Pomodoro::startShortBreak()
+void Runner::startShortBreak()
 {
     timer->stop();
     QSettings s;
@@ -61,7 +63,7 @@ void Pomodoro::startShortBreak()
     timer->start();
 }
 
-void Pomodoro::startLongBreak()
+void Runner::startLongBreak()
 {
     timer->stop();
     QSettings s;
@@ -70,17 +72,17 @@ void Pomodoro::startLongBreak()
     timer->start();
 }
 
-void Pomodoro::pause()
+void Runner::pause()
 {
     timer->stop();
 }
 
-void Pomodoro::resume()
+void Runner::resume()
 {
     timer->start();
 }
 
-void Pomodoro::timerTicked()
+void Runner::timerTicked()
 {
     time_left--;
     emit tick();
@@ -110,12 +112,12 @@ void Pomodoro::timerTicked()
     }
 }
 
-time_t Pomodoro::getTimeLeft()
+time_t Runner::getTimeLeft()
 {
     return time_left;
 }
 
-bool Pomodoro::isActive()
+bool Runner::isActive()
 {
     return timer->isActive();
 }
